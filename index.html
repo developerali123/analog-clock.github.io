@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog clock</title>
+    <style>
+        :root{
+            --rotate:20deg;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .clock{
+            position: relative;
+            height: 400px;
+            width:400px;
+            border-radius: 50%;
+            border:6px solid rgb(17, 17, 17);
+            padding:20px;
+            margin-top: 10px;
+            margin: auto;
+            background: silver;
+        }
+        .numbers{
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .number{
+            color:black;
+            position: absolute;
+            text-align: center;
+            font-size: 25px;
+            transform: translate(-50%);
+            transform: rotate(var(--rotate));
+            height: 100%;
+            left: 50%;
+        }
+        .number1{
+            --rotate:30deg;
+        }
+        .number2{
+            --rotate:60deg;
+        }
+        .number3{
+            --rotate:90deg;
+        }
+        .number4{
+            --rotate:120deg;
+        }
+        .number5{
+            --rotate:150deg;
+        }
+        .number6{
+            --rotate:180deg;
+        }
+        .number7{
+            --rotate:210deg;
+        }
+        .number8{
+            --rotate:240deg;
+        }
+        .number9{
+            --rotate:270deg;
+        }
+        .number10{
+            --rotate:300deg;
+        }
+        .number11{
+            --rotate:330deg;
+        }
+        .number12{
+            --rotate:360deg;
+        }
+        .handle{
+            --rotation:0;
+            position: absolute;
+            bottom: 50%;
+            border:1px solid black;
+            left: 50%;
+            transform: translateX(-50%) rotate(calc(var(--rotation)*180deg));
+            transform-origin: bottom;
+        }
+        .hour{
+            width:12px;
+            height: 20%;
+            background: black;
+            --rotation:120deg;
+        }
+        .min{
+            width:6px;
+            height: 30%;
+            background: rgb(235, 26, 26);
+            --rotation:120deg;
+        }
+        .sec{
+            width:3px;
+            height: 40%;
+            background: rgb(44, 2, 233);
+            --rotation:120deg;
+        }
+        #time,#date{
+            font-size: 30px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analog clock</h1>
+    <div class="clock" id="clock">
+    <div class="handles">
+        <div class="handle hour" id="hour"></div>
+        <div class="handle min" id="min"></div>
+        <div class="handle sec" id="sec"></div>
+    </div>
+    <div class="numbers">
+        <div class="number number1">1</div>
+        <div class="number number2">2</div>
+        <div class="number number3">3</div>
+        <div class="number number4">4</div>
+        <div class="number number5">5</div>
+        <div class="number number6">6</div>
+        <div class="number number7">7</div>
+        <div class="number number8">8</div>
+        <div class="number number9">9</div>
+        <div class="number number10">10</div>
+        <div class="number number11">11</div>
+        <div class="number number12">12</div>
+    </div>
+    </div>
+    <div id="time"></div>
+    <div id="date"></div>
+</div>
+<script>
+    setInterval(setclock,1000);
+    var hour=document.getElementById("hour");
+    var min=document.getElementById("min");
+    var sec=document.getElementById("sec");
+    var time=document.getElementById("time");
+    var time_date=document.getElementById("date");
+    function setclock(){
+        var date=new Date();
+        var hours=date.getHours();
+        var minutes=date.getMinutes();
+        var seconds=date.getSeconds();
+        var session="AM";
+        if(hours==0){
+            hours=12;
+        }
+        if(hours>=12){
+            hours=hours-12;
+            session="PM";
+        }
+        if(hours<10){
+            hours="0"+hours;
+        }
+        if(minutes<10){
+            minutes="0"+minutes;
+        }
+        if(seconds<10){
+            seconds="0"+seconds;
+        }
+        time.innerHTML=hours+" : "+minutes+" : "+seconds+" "+session;
+        time_date.innerHTML=date.toDateString();
+        var hour_ratio=30*date.getHours()+date.getMinutes()/2;
+        var min_ratio=6*date.getMinutes();
+        var sec_ratio=6*date.getSeconds();
+        hour.style.transform=`rotate(${hour_ratio}deg)`;
+        min.style.transform=`rotate(${min_ratio}deg)`;
+        sec.style.transform=`rotate(${sec_ratio}deg)`;
+    }
+    setclock();
+</script>
+</body>
+</html>
